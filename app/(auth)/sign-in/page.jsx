@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GoogleButton } from "@/components/google-button";
 
 const dashboardByRole = {
   admin: "/dashboard/admin",
@@ -85,6 +86,12 @@ export default function SignInPage({ searchParams }) {
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
+
+          <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
+            <span className="h-px flex-1 bg-border" /> OR{" "}
+            <span className="h-px flex-1 bg-border" />
+          </div>
+          <GoogleButton/>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             New to PizzaHub?{" "}
