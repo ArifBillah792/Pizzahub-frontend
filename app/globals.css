@@ -128,3 +128,25 @@
     @apply font-sans;
   }
 }
+
+/* PizzaHub theme */
+:root {
+  --background: #fff8ee;
+  --foreground: #2b1a12;
+  --card: #ffffff;
+  --card-foreground: #2b1a12;
+  --popover: #ffffff;
+  --popover-foreground: #2b1a12;
+  --primary: #d62828;
+  --primary-foreground: #ffffff;
+  --secondary: #f77f00;
+  --secondary-foreground: #ffffff;
+  --accent: #fcbf49;
+  --accent-foreground: #2b1a12;
+  --muted: #f5e9da;
+  --muted-foreground: #7a6253;
+  --border: #eadbc8;
+  --input: #eadbc8;
+  --ring: #d62828;
+  --radius: 0.75rem;
+}
