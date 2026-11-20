@@ -12,6 +12,7 @@ export function GoogleButton({ role, label = "Continue with Google" }) {
     const { error } = await signIn.social({
       provider: "google",
       callbackURL: "/dashboard",
+      errorCallbackURL: "/sign-in",
     });
     if (error)
       toast.error(error.message || "Google sign in failed. Please try again.");
