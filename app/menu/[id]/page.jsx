@@ -5,6 +5,7 @@ import { getSession } from "@/lib/session";
 import { apiFetch } from "@/lib/api";
 import { formatPrice } from "@/lib/format";
 import { ImageGallery } from "@/components/image-gallery";
+import { OrderForm } from "@/components/order-form";
 
 export default async function ItemDetailsPage({ params }) {
   const { id } = await params;
@@ -94,9 +95,7 @@ export default async function ItemDetailsPage({ params }) {
 
           {/* order */}
           {user.role === "customer" ? (
-            <div className="rounded-2xl border border-primary/40 bg-primary/10 p-5 text-sm">
-              The order form comes in the next step.
-            </div>
+            <OrderForm itemId={item._id} />
           ) : (
             <p className="rounded-2xl border border-border bg-muted p-4 text-sm text-muted-foreground">
               {user.role === "admin"
