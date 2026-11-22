@@ -45,8 +45,44 @@
   --radius-2xl: calc(var(--radius) + 8px);
 }
 
-/* PizzaHub theme: Dark Neon */
-:root,
+/* PizzaHub theme: Light (warm cream) */
+:root {
+  --background: #fff8ee;
+  --foreground: #2b1a12;
+  --card: #ffffff;
+  --card-foreground: #2b1a12;
+  --popover: #ffffff;
+  --popover-foreground: #2b1a12;
+  --primary: #e63946;
+  --primary-foreground: #ffffff;
+  --secondary: #f5e9da;
+  --secondary-foreground: #2b1a12;
+  --accent: #f4a300;
+  --accent-foreground: #2b1a12;
+  --muted: #f5e9da;
+  --muted-foreground: #6b5444;
+  --destructive: #d62828;
+  --success: #2f8f46;
+  --border: #eadbc8;
+  --input: #eadbc8;
+  --ring: #e63946;
+  --radius: 0.875rem;
+  --chart-1: #e63946;
+  --chart-2: #f4a300;
+  --chart-3: #2f8f46;
+  --chart-4: #ff8a3d;
+  --chart-5: #6b5444;
+  --sidebar: #fff3e3;
+  --sidebar-foreground: #2b1a12;
+  --sidebar-primary: #e63946;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5e9da;
+  --sidebar-accent-foreground: #2b1a12;
+  --sidebar-border: #eadbc8;
+  --sidebar-ring: #e63946;
+}
+
+/* PizzaHub theme: Dark Neon (default) */
 .dark {
   --background: #120c0a;
   --foreground: #fff3e6;
@@ -68,15 +104,11 @@
   --input: #3a2a22;
   --ring: #e63946;
   --radius: 0.875rem;
-
-  /* chart colours (dashboards) */
   --chart-1: #e63946;
   --chart-2: #ffc94d;
   --chart-3: #2f8f46;
   --chart-4: #ff8a3d;
   --chart-5: #c9b6a6;
-
-  /* dashboard sidebar */
   --sidebar: #1a110d;
   --sidebar-foreground: #fff3e6;
   --sidebar-primary: #e63946;

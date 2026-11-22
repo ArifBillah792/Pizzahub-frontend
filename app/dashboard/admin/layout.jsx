@@ -4,3 +4,4 @@ export default async function AdminLayout({ children }) {
   await requireRole("admin");
   return children;
 }
+

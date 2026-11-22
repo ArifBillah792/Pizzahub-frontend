@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -17,17 +18,23 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const htmlClass = `${sora.variable} dark h-full antialiased`;
+  const htmlClass = `${sora.variable} h-full antialiased`;
 
   return (
-    <html lang="en" className={htmlClass}>
+    <html lang="en" className={htmlClass} suppressHydrationWarning>
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
-        <Toaster richColors theme="dark" position="top-center" />
-
-        <Toaster richColors theme="dark" position="top-center" />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          forcedTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+          <Toaster richColors position="top-center" />
+        </ThemeProvider>
       </body>
     </html>
   );
