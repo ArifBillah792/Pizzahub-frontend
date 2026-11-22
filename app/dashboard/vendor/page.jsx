@@ -23,12 +23,12 @@ export default async function VendorOverview() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard
-          label="Total menu items"
+          label="Total menu"
           value={s.totalItems}
           icon={UtensilsCrossed}
         />
         <StatCard
-          label="Active menu items"
+          label="Active menu"
           value={s.activeItems}
           icon={Eye}
           tone="green"
@@ -40,7 +40,7 @@ export default async function VendorOverview() {
           tone="accent"
         />
         <StatCard
-          label="Accepted orders"
+          label="Accepted"
           value={s.acceptedOrders}
           icon={CheckCircle2}
           tone="green"
