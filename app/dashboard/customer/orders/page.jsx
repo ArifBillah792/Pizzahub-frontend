@@ -92,11 +92,17 @@ export default async function MyOrdersPage() {
               </p>
             </div>
 
-            {order.status === "pending" && (
-              <div className="sm:self-center">
+            <div className="flex gap-2 sm:flex-col sm:self-center">
+              <Link
+                href={`/dashboard/customer/orders/${order._id}`}
+                className="rounded-lg border border-border px-3 py-1.5 text-center text-sm font-semibold hover:border-primary hover:text-primary"
+              >
+                View details
+              </Link>
+              {order.status === "pending" && (
                 <CancelOrderButton orderId={order._id} />
-              </div>
-            )}
+              )}
+            </div>
           </article>
         ))}
       </div>
