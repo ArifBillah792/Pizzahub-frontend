@@ -5,6 +5,7 @@ const styles = {
   rejected: "border-destructive/40 bg-destructive/15 text-destructive",
   cancelled: "border-border bg-muted text-muted-foreground",
   inactive: "border-border bg-muted text-muted-foreground",
+  paid: "border-green-500/40 bg-green-500/15 text-green-400",
 };
 
 export function StatusBadge({ status }) {

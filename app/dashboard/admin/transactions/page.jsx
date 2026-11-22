@@ -70,9 +70,7 @@ export default async function TransactionsPage() {
                     </span>
                   </td>
                   <td className="p-4">
-                    <StatusBadge
-                      status={t.status === "paid" ? "approved" : t.status}
-                    />
+                    <StatusBadge status={t.status} />
                   </td>
                   <td className="p-4 text-muted-foreground">
                     {formatDate(t.createdAt)}
