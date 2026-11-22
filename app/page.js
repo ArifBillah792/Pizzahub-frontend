@@ -1,69 +1,208 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Beef,
+  CalendarCheck,
+  Clock,
+  CupSoda,
+  Leaf,
+  Pizza,
+  Search,
+  ShieldCheck,
+  ShoppingBag,
+  Sparkles,
+  Store,
+  UtensilsCrossed,
+} from "lucide-react";
+import { apiFetch } from "@/lib/api";
+import { Hero } from "@/components/home/hero";
+import { FadeIn } from "@/components/home/fade-in";
+import { SectionHeading } from "@/components/home/section-heading";
+import { MenuCard } from "@/components/menu-card";
 
-export default function Home() {
+const categories = [
+  { name: "Classic Pizzas", icon: Pizza },
+  { name: "Vegetarian Pizzas", icon: Leaf },
+  { name: "Meat Lovers", icon: Beef },
+  { name: "Specialty / Gourmet Pizzas", icon: Sparkles },
+  { name: "Sides & Appetizers", icon: UtensilsCrossed },
+  { name: "Beverages & Desserts", icon: CupSoda },
+];
+
+const steps = [
+  {
+    icon: Search,
+    title: "Find your pizza",
+    text: "Browse menus from local pizzerias. Search by name or filter by category and area.",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Place your order",
+    text: "Pick a delivery date and address, and add special instructions for the kitchen.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Track and enjoy",
+    text: "Watch your order go from pending to accepted in your dashboard, then dig in.",
+  },
+];
+
+export default async function HomePage() {
+  const { data: featured } = await apiFetch("/menu-items/featured");
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main>
+      <Hero />
+
+      {/* Featured Menu Items */}
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <SectionHeading
+            eyebrow="Fresh from the oven"
+            title="Featured"
+            highlight="Menu Items"
+            description="Hand-picked pizzas from our best local restaurants. Premium vendors are featured first."
+          />
+          <Link
+            href="/menu"
+            className="inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+          >
+            View full menu <ArrowRight className="size-4" />
+          </Link>
+        </div>
+
+        {featured?.length ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((item, i) => (
+              <FadeIn key={item._id} delay={(i % 3) * 0.1} className="h-full">
+                <MenuCard item={item} />
+              </FadeIn>
+            ))}
+          </div>
+        ) : (
+          <p className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
+            New pizzas are on their way. Check back soon!
           </p>
+        )}
+      </section>
+
+      {/* Pizza Categories */}
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <SectionHeading
+          eyebrow="Pick your craving"
+          title="Pizza"
+          highlight="Categories"
+          center
+        />
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {categories.map(({ name, icon: Icon }, i) => (
+            <FadeIn key={name} delay={i * 0.06}>
+              <Link
+                href={`/menu?category=${encodeURIComponent(name)}`}
+                className="group flex h-full flex-col items-center gap-4 rounded-3xl border border-border bg-card p-6 text-center transition hover:-translate-y-1 hover:border-primary"
+              >
+                <span className="flex size-16 items-center justify-center rounded-full bg-primary/15 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Icon className="size-7" />
+                </span>
+                <span className="text-sm font-semibold">{name}</span>
+              </Link>
+            </FadeIn>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Why Choose PizzaHub (bento grid) */}
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <SectionHeading
+          eyebrow="The PizzaHub difference"
+          title="Why Choose"
+          highlight="PizzaHub?"
+        />
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <FadeIn className="md:row-span-2">
+            <div className="flex h-full flex-col justify-between gap-6 rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/20 to-card p-8">
+              <span className="glow-red flex size-14 items-center justify-center rounded-2xl bg-primary">
+                <Store className="size-7 text-primary-foreground" />
+              </span>
+              <div>
+                <h3 className="text-2xl font-extrabold">
+                  Only real local pizzerias
+                </h3>
+                <p className="mt-3 text-muted-foreground">
+                  Every restaurant has its own profile, so you always know who
+                  is baking your pizza and where they are.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="h-full rounded-3xl bg-primary p-7 text-primary-foreground">
+              <Clock className="size-8" />
+              <h3 className="mt-4 text-xl font-bold">Live order tracking</h3>
+              <p className="mt-2 text-sm opacity-90">
+                See the moment the restaurant accepts your order.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="h-full rounded-3xl bg-accent p-7 text-accent-foreground">
+              <ShieldCheck className="size-8" />
+              <h3 className="mt-4 text-xl font-bold">Every item reviewed</h3>
+              <p className="mt-2 text-sm opacity-90">
+                Our team approves each menu item before it appears.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.3} className="md:col-span-2">
+            <div className="flex h-full items-center gap-5 rounded-3xl border border-border bg-card p-7">
+              <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-green-600/20">
+                <CalendarCheck className="size-7 text-green-400" />
+              </span>
+              <div>
+                <h3 className="text-xl font-bold">Order for any day</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Choose a delivery date and address, add special instructions,
+                  and we pass them straight to the kitchen.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* How PizzaHub Works */}
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <SectionHeading
+          eyebrow="Simple as one, two, slice"
+          title="How PizzaHub"
+          highlight="Works"
+          center
+        />
+        <div className="relative mt-12 grid gap-10 md:grid-cols-3">
+          <div
+            aria-hidden
+            className="absolute top-8 right-[16%] left-[16%] hidden border-t-2 border-dashed border-border md:block"
+          />
+          {steps.map(({ icon: Icon, title, text }, i) => (
+            <FadeIn
+              key={title}
+              delay={i * 0.15}
+              className="relative flex flex-col items-center text-center"
+            >
+              <span className="glow-red flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground ring-8 ring-background">
+                <Icon className="size-7" />
+              </span>
+              <span className="mt-4 text-xs font-bold tracking-widest text-accent">
+                STEP {i + 1}
+              </span>
+              <h3 className="mt-1 text-xl font-bold">{title}</h3>
+              <p className="mt-2 max-w-xs text-sm text-muted-foreground">
+                {text}
+              </p>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
